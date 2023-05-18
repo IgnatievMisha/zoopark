@@ -33,7 +33,7 @@ class Animal:
 
 class Zoo:
     def __init__(self):
-        super.__init__()
+        super().__init__()
         self.animals=[]
 
     def add_animal(self, animal):
@@ -41,12 +41,27 @@ class Zoo:
     def remove_animal(self, animal):
         if animal in self.animals:
             self.animals.remove(animal)
-    def feed_all(self):
-        if animal in self.animals:
-            animal.eat()
+
     def ply_with(self, animal):
         if animal in self.animals:
             animal.play()
-    def grow_all(self):
-        if animal in self.animals:
-            animal.grow()
+    def __str__(self):
+        return "\n".join([str(animal) for animal in self.animals])
+
+def save_zoo_state(zoo, day):
+    filename=f"Day_{day}.txt"
+    with open(filename, "w") as file:
+        file.write(str(zoo))
+
+zoo=Zoo()
+zoo.add_animal(Animal("lion", "Simba", 2, 60, 6, 5))
+zoo.add_animal(Animal("Giraffe", "Melman", 4, 80, 8, 7))
+zoo.add_animal(Animal("Hippo", "Gloria", 3, 70, 7, 6))
+
+for i in range(1, 11):
+    print(f"Day {i}")
+    save_zoo_state(zoo, i)
+    print(zoo)
+    print("\n")
+
+print("simulating finished")
